@@ -119,6 +119,14 @@ header h1 {
     text-transform: capitalize;
 }
 
+.card:hover {
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(50, 50, 50, 0.9);
+}
+
+.card:hover .card-text {
+    color: rgba(25, 25, 25, 1); 
+}
 
 /* ===================================== 
    Modal
@@ -206,6 +214,11 @@ header h1 {
     transition: .4s ease-out;
     outline: none;
   }
+
+  
+.hidden {
+    display: none; 
+}
   
 
 /* ===================================== 
@@ -242,19 +255,9 @@ header h1 {
 
 /* ===================================== 
    Desktop
-   Hover styles on desktop 
 ======================================== */
 
 @media (min-width: 1024px) {
-
-    .card:hover {
-        background: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(50, 50, 50, 0.9);
-    }
-
-    .card:hover .card-text {
-        color: rgba(25, 25, 25, 1); 
-    }
 
     .btn:hover {
         background: rgba(255, 255, 255, 1);
