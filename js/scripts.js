@@ -2,9 +2,12 @@
 let employees = []; 
 const urlAPI = 'https://randomuser.me/api/?results=12&inc=name, picture, email, location, phone, dob, &noinfo, &nat=US';
 const gallery = document.getElementById('gallery');
+
 const modal_container = document.querySelector('.modal-container');
-const modal_info_container = document.querySelector('.modal-info-container');
 const modal_close_btn = document.querySelector('.modal-close-btn');
+const modal_info_container = document.querySelector('.modal-info-container');
+
+
 
 // fetch data from the Random User Generator API
 fetch(urlAPI)
@@ -49,13 +52,15 @@ function displayEmployees(employeeData) {
 }
 
 
+
+
 /**
  * Renders the modal view 
- * @param {number} index - current index in the array 
+ * @param {number}  index - current index in the array 
  */
 function displayModal(index) {
     
-    let {name, dob, phone, email, location: {city, street, state, postcode}, picture } =
+    let {name, dob, phone, email, picture, location: {city, street, state, postcode} } =
     employees[index]; 
 
     let date = new Date(dob.date);
@@ -65,37 +70,57 @@ function displayModal(index) {
         <div class='text-container'>
             <h3 id='name' class='modal-name'>${name.first} ${name.last}</h3>
             <p class='modal-text'>${email}</p>
-            <p class='modal-text cap'>${city}</p>
-            <hr>
             <p class='modal-text'>${phone}</p>
-            <p class='modal-text'> ${location.street}, ${state} ${postcode}</p>
+            <hr>
+            <p class='modal-text cap'>${city}</p>
+            <p class='modal-text'>${street.number} ${street.name}, ${state} ${postcode}</p>
             <p class='modal-text'>Birthday:
             ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
-            </div>`;
-
+        </div>`;
             modal_container.classList.remove('hidden');
             modal_info_container.innerHTML = modalHTML; 
 }
 
+
+
+
+
 /*
-    Listen for a click on the gallery 
-    and display the modal view 
+ *   Listens for a click in the gallery div
+ *   (but only responds to clicks made on the card element) 
+ *   and display the modal view 
 */
 gallery.addEventListener('click', e => {
-    
     // make sure the click was not on the grid container itself 
     if(e.target !==  gallery) {
-        // select the card closest to the clicked event 
         const card = e.target.closest('.card'); 
-        // get the data-index attr from the card to pass to the displayModal func
-        const index = card.getAttribute('data-index');
-        displayModal(index); 
+        const string = card.getAttribute('data-index'); 
+        const num = parseInt(string);
+        displayModal(num); 
     }
 });
 
 
-// Add the hidden class to the modal overlay
+
+
+// Add the hidden class to the modal container
 modal_close_btn.addEventListener('click', () => {
     modal_container.classList.add('hidden');
 }); 
 
+
+
+// Toggle previous
+// const previous = document.getElementById('modal-prev');
+// const next = document.getElementById('modal-next');
+// const toggleContainer = document.querySelector('.modal-btn-container');
+
+
+// toggleContainer.addEventListener('click', (e) => {
+//     const toggle = e.target; 
+//     if(toggle === previous) {
+//        modal_info_container.insertAdjacentHTML('beforebegin', displayModal); 
+//     } else if (toggle === next) {
+//         modal_info_container.insertAdjacentHTML('afterend', displayModal); 
+//     }
+// });
